@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(180, 120, 120, 0.1);
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        /* Add styles for radio buttons */
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        /* CSS code for styling the Register button */
+        button {
+            background-color: #321ee6;
+            color: #fff;
+            padding: 10px 15px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .error {
+            color: red;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- action="form2.html" -->
+    <form action="form2.html" name="myForm" onsubmit="return validateForm()">
+        <!-- Each label is associated with its respective input field -->
+        <label for="NameInput">Name</label>
+        <input type="text" name="Name" id="NameInput">
+        <p class="error" id="nameError"></p>
+
+        <label for="EmailInput">Email</label>
+        <input type="text" name="email" id="EmailInput">
+        <p class="error" id="emailError"></p>
+
+        <label for="PasswordInput">Password</label>
+        <input type="password" name="password" id="PasswordInput">
+        <p class="error" id="passwordError"></p>
+
+        <label for="DateOfBirthInput">Date of birth</label>
+        <input type="date" name="dateofbirth" id="DateOfBirthInput">
+        <p class="error" id="dateError"></p>
+
+        <label for="CityInput">City</label>
+        <input type="text" name="city" id="CityInput">
+        <p class="error" id="cityError"></p>
+
+        <label>Gender:</label>
+        <input type="radio" name="gender" value="female">Female
+        <input type="radio" name="gender" value="male">Male
+        <input type="radio" name="gender" value="other">Other
+        <p class="error" id="genderError"></p>
+
+        <input type="reset" value="Reset"><br>
+        <button type="submit">Register</button>
+    </form>
+
+    <script>
+        // variables.......................................
+        function validateForm() {
+            let A = document.forms["myForm"]["Name"].value;
+            let B = document.forms["myForm"]["email"].value;
+            let C = document.forms["myForm"]["password"].value;
+            let D = document.forms["myForm"]["dateofbirth"].value;
+            let E = document.forms["myForm"]["city"].value;
+            let F = document.querySelector('input[name="gender"]:checked');
+
+            // regex...............................................
+            let nameRegex = /^[a-z ,.'-]+$/i;
+            let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            let passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            let dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+            let cityRegex = /^[a-zA-Z\s'-]+$/;
+            let genderRegex = /^(male|female|other|prefer not to say)$/i;
+
+            // name...................................
+            let nameError = document.getElementById("nameError");
+            if (A === "") {
+                nameError.innerHTML = "Name must be filled out";
+                return false;
+            } else if (!nameRegex.test(A)) {
+                nameError.innerHTML = "Enter a valid name";
+                return false;
+            } else {
+                nameError.innerHTML = "";
+            }
+
+            // email......................................
+            let emailError = document.getElementById("emailError");
+            if (B === "") {
+                emailError.innerHTML = "Email must be filled out";
+                return false;
+            } else if (!emailRegex.test(B)) {
+                emailError.innerHTML = "Enter a valid email";
+                return false;
+            } else {
+                emailError.innerHTML = "";
+            }
+
+            // password...........................................
+            let passwordError = document.getElementById("passwordError");
+            if (C === "") {
+                passwordError.innerHTML = "Password must be filled out";
+                return false;
+            } else if (!passwordRegex.test(C)) {
+                passwordError.innerHTML = "Enter a valid password";
+                return false;
+            } else {
+                passwordError.innerHTML = "";
+            }
+
+            // Date...............................
+            let dateError = document.getElementById("dateError");
+            if (D === "") {
+                dateError.innerHTML = "Date must be filled out";
+                return false;
+            } else if (!dateRegex.test(D)) {
+                dateError.innerHTML = "Enter a valid date";
+                return false;
+            } else {
+                dateError.innerHTML = "";
+            }
+
+            // City................................
+            let cityError = document.getElementById("cityError");
+            if (E === "") {
+                cityError.innerHTML = "City must be filled out";
+                return false;
+            } else if (!cityRegex.test(E)) {
+                cityError.innerHTML = "Enter a valid city";
+                return false;
+            } else {
+                cityError.innerHTML = "";
+            }
+
+            // Gender ...................................
+            let genderError = document.getElementById("genderError");
+            if (!F) {
+                genderError.innerHTML = "Please select a gender";
+                return false;
+            } else {
+                genderError.innerHTML = "";
+            }
+
+            return true;
+        }
+    </script>
+</body>
+
+</html>

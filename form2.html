@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(180, 120, 120, 0.1);
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        .error {
+            color: red;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="formphp.php" method="post" onsubmit="return validateForm()">
+        Name <input type="text" name="Name" id="Name">
+        <p class="error" id="nameError"></p>
+
+        Email <input type="email" name="email" id="email">
+        <p class="error" id="emailError"></p>
+
+        Password <input type="password" name="password" id="password">
+        <p class="error" id="passwordError"></p>
+
+        <input type="submit">
+    </form>
+
+    <script>
+        function validateForm() {
+            var name = document.getElementById("Name").value;
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+
+            // Reset previous error messages
+            document.getElementById("nameError").innerHTML = "";
+            document.getElementById("emailError").innerHTML = "";
+            document.getElementById("passwordError").innerHTML = "";
+
+            // Name validation
+            if (name === "") {
+                document.getElementById("nameError").innerHTML = "Name must be filled out";
+                return false;
+            }
+
+            // Email validation
+            if (email === "") {
+                document.getElementById("emailError").innerHTML = "Email must be filled out";
+                return false;
+            } else if (!validateEmail(email)) {
+                document.getElementById("emailError").innerHTML = "Enter a valid email address";
+                return false;
+            }
+
+            // Password validation
+            if (password === "") {
+                document.getElementById("passwordError").innerHTML = "Password must be filled out";
+                return false;
+            }
+
+            return true;
+        }
+
+        function validateEmail(email) {
+            // Regular expression for basic email validation
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+    </script>
+</body>
+
+</html>
